@@ -13,19 +13,18 @@ public class FindDistance {
     }
 
     private static int minDistance(int[] mas) {
-        int min1, min2;
-        int indexMin1, indexMin2;
-        if (mas[1] >= mas[0]) {
-            min1 = mas[0];
-            indexMin1 = 0;
-            min2 = mas[1];
-            indexMin2 = 1;
-        } else {
+        int min1 = mas[0];
+        int indexMin1 = 0;
+        int min2 = mas[1];
+        int indexMin2 = 1;
+
+        if (mas[1] <= mas[0]) {
             min1 = mas[1];
             indexMin1 = 1;
             min2 = mas[0];
             indexMin2 = 0;
         }
+        
         for (int i = 2; i < mas.length; i++) {
             if (mas[i] <= min1) {
                 min2 = min1;
