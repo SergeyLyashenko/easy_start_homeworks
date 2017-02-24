@@ -8,11 +8,15 @@ public class FindDistance {
     public static void main(String[] args) {
         int[] mas = {3, 45, 34, -1, 45, 4, -1, 2, -1, 3, 1};
 
-
         System.out.println(minDistance(mas));
     }
 
     private static int minDistance(int[] mas) {
+
+        if (mas.length < 2) {
+            return -1;
+        }
+
         int min1 = mas[0];
         int indexMin1 = 0;
         int min2 = mas[1];
