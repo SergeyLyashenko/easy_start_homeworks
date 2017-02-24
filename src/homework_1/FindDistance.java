@@ -37,9 +37,9 @@ public class FindDistance {
                     min2 = mas[i];
                     indexMin2 = i;
                 }
-                if (mas[i] == min2&&Math.abs(i - indexMin1) < Math.abs(indexMin2 - indexMin1)) {
-                        min2 = mas[i];
-                        indexMin2 = i;
+                if (mas[i] == min2 && Math.abs(i - indexMin1) < Math.abs(indexMin2 - indexMin1)) {
+                    min2 = mas[i];
+                    indexMin2 = i;
                 }
             }
         }
