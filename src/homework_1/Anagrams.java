@@ -9,14 +9,24 @@ public class Anagrams {
     public static void main(String[] args) {
         String myString = "  мама  мыла раму рома ";
         printAnagram(myString, " ");
+
     }
 
     private static void printAnagram(String string, String splitter) {
         int firstIndex = 0;
         int lastIndex = 0;
 
+
         while (lastIndex != -1) {
+
+            //ищем сплиттер
             lastIndex = string.indexOf(splitter, firstIndex);
+
+            //если пустой сплиттер переворачиваем всю строку
+            if (splitter.length() == 0) {
+                lastIndex = -1;
+            }
+
             if (lastIndex == firstIndex) {
                 System.out.print(splitter);
                 firstIndex += splitter.length();
