@@ -4,17 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by Kate on 02.03.17.
- */
 public class HtmlHandler {
 
 
     public StringBuilder handleWebPage(String url) throws IOException {
-        StringBuilder result = new StringBuilder();
 
         URL targetUrl = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) targetUrl.openConnection();

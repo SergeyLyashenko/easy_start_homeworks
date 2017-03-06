@@ -2,9 +2,7 @@ package homework_3;
 
 import java.util.Stack;
 
-/**
- * Created by Sergey on 06.03.2017.
- */
+
 public class ParseHtml {
     public String parseHtmlDoc(StringBuilder htmlDoc) {
         StringBuilder builder = new StringBuilder();
@@ -59,7 +57,6 @@ public class ParseHtml {
             if (stack.peek()==WhereAmI.BETWEEN_TAGS) {
                 builder.append(temp);
             }
-
         }
         return builder.toString();
     }
