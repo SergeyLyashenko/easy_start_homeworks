@@ -1,8 +1,5 @@
 package homework_3;
 
-/**
- * Created by Sergey on 09.03.2017.
- */
 public final class EntityList {
     public static final String[][] entities = {
             {"\u00A0", "nbsp"}, // non-breaking space

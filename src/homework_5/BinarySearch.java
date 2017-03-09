@@ -1,8 +1,5 @@
 package homework_5;
 
-/**
- * Created by Sergey on 09.03.2017.
- */
 public class BinarySearch {
 
     public static void main(String[] args) {
