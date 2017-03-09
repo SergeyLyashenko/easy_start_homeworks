@@ -7,8 +7,8 @@ import java.util.Stack;
 public class ParseHtml {
     public String parseHtmlDoc(StringBuilder htmlDoc) {
         StringBuilder builder = new StringBuilder();
-        Stack<Position> stack = new Stack<>();
-        stack.push(Position.BETWEEN_TAGS);
+        Stack<Position> myPosition = new Stack<>();
+        myPosition.push(Position.BETWEEN_TAGS);
         char temp;
 
         final HashMap<String, String> lookupMap = new HashMap<>();
@@ -23,78 +23,78 @@ public class ParseHtml {
 
 
             if (temp == '<' && htmlDoc.charAt(i + 1) == 's' && htmlDoc.charAt(i + 2) == 'c'
-                    && (stack.peek() != Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES
-                    || stack.peek() != Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES)) {
-                stack.push(Position.INSIDE_SCRIPT_TAG);
+                    && (myPosition.peek() != Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES
+                    || myPosition.peek() != Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES)) {
+                myPosition.push(Position.INSIDE_SCRIPT_TAG);
                 continue;
             }
             if (temp == '<' && htmlDoc.charAt(i + 1) == '/' && htmlDoc.charAt(i + 2) == 's' && htmlDoc.charAt(i + 3) == 'c'
-                    && stack.peek() == Position.INSIDE_SCRIPT_TAG) {
-                stack.pop();
+                    && myPosition.peek() == Position.INSIDE_SCRIPT_TAG) {
+                myPosition.pop();
                 i += 8;
                 continue;
             }
-            if (stack.peek() == Position.INSIDE_SCRIPT_TAG) {
+            if (myPosition.peek() == Position.INSIDE_SCRIPT_TAG) {
                 continue;
             }
             if (temp == '<' && htmlDoc.charAt(i + 1) == 's' && htmlDoc.charAt(i + 2) == 't'
-                    && (stack.peek() != Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES
-                    || stack.peek() != Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES)) {
-                stack.push(Position.INSIDE_STYLE_TAG);
+                    && (myPosition.peek() != Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES
+                    || myPosition.peek() != Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES)) {
+                myPosition.push(Position.INSIDE_STYLE_TAG);
                 continue;
             }
             if (temp == '<' && htmlDoc.charAt(i + 1) == '/' && htmlDoc.charAt(i + 2) == 's' && htmlDoc.charAt(i + 3) == 't'
-                    && stack.peek() == Position.INSIDE_STYLE_TAG) {
-                stack.pop();
+                    && myPosition.peek() == Position.INSIDE_STYLE_TAG) {
+                myPosition.pop();
                 i += 7;
                 continue;
             }
-            if (stack.peek() == Position.INSIDE_STYLE_TAG) {
+            if (myPosition.peek() == Position.INSIDE_STYLE_TAG) {
                 continue;
             }
-            if (temp == '<' && (stack.peek() != Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES
-                    || stack.peek() != Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES)) {
-                stack.push(Position.INSIDE_TAG);
+            if (temp == '<' && (myPosition.peek() != Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES
+                    || myPosition.peek() != Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES)) {
+                myPosition.push(Position.INSIDE_TAG);
                 continue;
             }
-            if (temp == '>' && stack.peek() == Position.INSIDE_TAG) {
-                stack.pop();
+            if (temp == '>' && myPosition.peek() == Position.INSIDE_TAG) {
+                myPosition.pop();
                 continue;
             }
-            if (temp == '\'' && stack.peek() != Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES) {
-                stack.push(Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES);
+            if (temp == '\'' && myPosition.peek() != Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES) {
+                myPosition.push(Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES);
                 continue;
             }
-            if (temp == '\'' && stack.peek() == Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES) {
-                stack.pop();
+            if (temp == '\'' && myPosition.peek() == Position.INSIDE_COMMENT_WITH_SINGLE_QUOTES) {
+                myPosition.pop();
                 continue;
             }
-            if (temp == '\"' && stack.peek() != Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES) {
-                stack.push(Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES);
+            if (temp == '\"' && myPosition.peek() != Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES) {
+                myPosition.push(Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES);
                 continue;
             }
-            if (temp == '\"' && stack.peek() == Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES) {
-                stack.pop();
+            if (temp == '\"' && myPosition.peek() == Position.INSIDE_COMMENT_WITH_DOUBLE_QUOTES) {
+                myPosition.pop();
                 continue;
             }
-            if (temp == '&' && stack.peek() == Position.BETWEEN_TAGS) {
-                stack.push(Position.ENTITY_CODE);
+            if (temp == '&' && myPosition.peek() == Position.BETWEEN_TAGS) {
+                myPosition.push(Position.ENTITY_CODE);
                 //entity.append(temp);
                 continue;
             }
-            if (temp == ';' && stack.peek() == Position.ENTITY_CODE) {
+            if (temp == ';' && myPosition.peek() == Position.ENTITY_CODE) {
                 entity = "";
-                stack.pop();
+                myPosition.pop();
                 continue;
             }
-            if (stack.peek() == Position.ENTITY_CODE) {
+            if (myPosition.peek() == Position.ENTITY_CODE) {
                 entity += temp;
                 if (lookupMap.containsKey(entity))
                     builder.append(lookupMap.get(entity));
                 continue;
             }
 
-            if (stack.peek() == Position.BETWEEN_TAGS) {
+            if (myPosition.peek() == Position.BETWEEN_TAGS) {
 
                 if (temp == ' ' && (builder.length() == 0 || builder.charAt(builder.length() - 1) == ' '))
                     continue;
